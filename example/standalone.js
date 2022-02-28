@@ -37,15 +37,15 @@ let server;
     },
   }));
 
-  provider.use(async (ctx, next) => {
-    const origSecure = ctx.req.secure;
-    ctx.req.secure = ctx.request.secure;
-    await pHelmet(ctx.req, ctx.res);
-    ctx.req.secure = origSecure;
-    return next();
-  });
-
   if (prod) {
+    provider.use(async (ctx, next) => {
+      const origSecure = ctx.req.secure;
+      ctx.req.secure = ctx.request.secure;
+      await pHelmet(ctx.req, ctx.res);
+      ctx.req.secure = origSecure;
+      return next();
+    });
+
     provider.proxy = true;
     provider.use(async (ctx, next) => {
       if (ctx.secure) {
