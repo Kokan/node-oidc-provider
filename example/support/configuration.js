@@ -52,4 +52,7 @@ module.exports = {
       },
     ],
   },
+  pkce: {
+    required: () => false,
+  },
 };
